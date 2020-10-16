@@ -38,6 +38,35 @@ class Hydrator():
     def get_dom(self):
         return str(self.soup)
 
+class Metatator():
+    @staticmethod
+    def generate_meta(**kwargs):
+        meta = {}
+        for key, value in kwargs.items():
+            if key == "title":
+                meta["title"] = value
+                meta["og:title"] = value
+                meta["twitter:title"] = value
+
+            if key == "image":
+                meta["image"] = value
+                meta["og:image"] = value
+                meta["twitter:image"] = value
+                
+                meta["twitter:card"] = "summary_large_image"
+
+            if key == "description":
+                meta["description"] = value
+                meta["og:description"] = value
+                meta["twitter:description"] = value
+            
+            if key == "url":
+                meta["og:url"] = value
+                meta["twitter:url"] = value
+            
+            if key == "site_name":
+                meta["og:site_name"] = value
+
 
 
 class Route():
