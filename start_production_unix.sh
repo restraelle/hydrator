@@ -1,0 +1,1 @@
+gunicorn main:wsgi_app -w 4 -b :4020
