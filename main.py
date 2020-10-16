@@ -57,7 +57,9 @@ class TestingRoute(Route):
 class DefaultRoute(Route):
     def generate(paths):
         return {
-            "og:title": "throwback to default"
+            "og:title": "throwback to default",
+            "og:video": "https://us.videos.epicio.net/public/full30/videos/MDI3MDY5/transforms/854x480.mp4",
+            "og:video:type": "video/mp4"
         }
 
 conf = {
