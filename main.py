@@ -1,8 +1,16 @@
 import cherrypy
 import os, os.path
 from bs4 import BeautifulSoup
+import requests
+import random
 
 from hydrator import Hydrator, Route
+
+session = requests.Session()
+session.headers.update({
+    "Accept": "application/json",
+    "User-Agent": "hydrator/0.1"
+})
 
 class Root(object):
     @cherrypy.expose
@@ -31,14 +39,23 @@ class Root(object):
         return dom
 
 class TestingRoute(Route):
-    def generate(levels):
+    def generate(paths):
+        r = session.get("https://www.reddit.com/.json")
+        data = r.json()["data"]["children"]
+
+        index = random.randint(0, len(data)-1)
+
+        print(data[index])
+
         return {
-            "og:title": "eggs"
+            "og:title": data[index]["data"]["title"],
+            "og:image": data[index]["data"]["thumbnail"],
+            "og:description": data[index]["data"]["subreddit"]
         }
 
 
 class DefaultRoute(Route):
-    def generate(levels):
+    def generate(paths):
         return {
             "og:title": "throwback to default"
         }
